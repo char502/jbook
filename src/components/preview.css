@@ -1,0 +1,16 @@
+.preview-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+/* pseudo element after adds a fake dom element into the DOM so can use
+this to show some content on top of the iframe */
+.preview-wrapper:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: red;
+}
