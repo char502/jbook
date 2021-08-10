@@ -11,7 +11,7 @@ export const fetchPlugin = (enteredInput: string) => {
   return {
     name: 'fetch-plugin',
     setup(build: esbuild.PluginBuild) {
-      // The regular expression ensures that in onLoad function is only going 
+      // The regular expression ensures that in onLoad function is only going
       // to be used when the file that we're trying to find/file trying to load
       // matches that regular expression (i.e. it's exact name has to be index.js)
       build.onLoad({ filter: /(^index\.js$)/ }, () => {
@@ -21,8 +21,8 @@ export const fetchPlugin = (enteredInput: string) => {
         };
       });
 
-    build.onLoad({ filter: /.*/ }, async (args: any) => {
-      // Check to see if we have already fetched this file
+      build.onLoad({ filter: /.*/ }, async (args: any) => {
+        // Check to see if we have already fetched this file
         // and if it is in the cache
         const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(
           args.path
@@ -32,13 +32,7 @@ export const fetchPlugin = (enteredInput: string) => {
         if (cachedResult) {
           return cachedResult;
         }
-
-
-
-
-      })
-
-
+      });
 
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
         // Check to see if we have already fetched this file
@@ -78,15 +72,11 @@ export const fetchPlugin = (enteredInput: string) => {
         await fileCache.setItem(args.path, result);
 
         return result;
-      })
+      });
 
-
-      
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-        
         // args.path is the full path to the file that are attempting to fetch
         const { data, request } = await axios.get(args.path);
-
 
         const result: esbuild.OnLoadResult = {
           loader: 'jsx',

@@ -102,6 +102,3 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
 };
 
 export default CodeEditor;
-function getValue(): any {
-  throw new Error('Function not implemented.');
-}
