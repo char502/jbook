@@ -3,14 +3,30 @@
   height: 100%;
 }
 
-/* pseudo element after adds a fake dom element into the DOM so can use
+.preview-wrapper iframe {
+  height: 100%;
+  background-color: white;
+}
+
+/* problem with vertical resizing, currently sends drag events into the
+iframe itself - which means those events are lost/won't persist */
+/* If have an element over the iframe, any drag events will be sent
+ to the top level context/document as opposed to inside the iframe itself */
+/* so need to show something over the iframe whenever you are dragging/resizing */
+/* Solution: */
+/* pseudo element, positioned directly on top of iframe.
+Adds a fake dom element into the DOM so can use
 this to show some content on top of the iframe */
-.preview-wrapper:after {
+/* only show when user is resizing - to prevent a resizer bug */
+/* both these selectors together ensures that this pseudo element only
+ comes into play when actively dragging/resizing*/
+.react-draggable-transparent-selection .preview-wrapper:after {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: red;
+  opacity: 0;
+  /* background-color: red; */
 }
