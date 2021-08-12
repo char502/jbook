@@ -1,7 +1,8 @@
 .editor-wrapper {
   position: relative;
   height: 100%;
-  width: 100%;
+  /* take up 100% of the space but leave behind 10px - allows for the width of the resize handle */
+  width: calc(100% - 10px);
 }
 
 .editor-wrapper .button-format {

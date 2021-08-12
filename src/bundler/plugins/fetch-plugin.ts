@@ -11,7 +11,7 @@ export const fetchPlugin = (enteredInput: string) => {
   return {
     name: 'fetch-plugin',
     setup(build: esbuild.PluginBuild) {
-      // The regular expression ensures that in onLoad function is only going
+      // The regular expression ensures that in the onLoad function, is only going
       // to be used when the file that we're trying to find/file trying to load
       // matches that regular expression (i.e. it's exact name has to be index.js)
       build.onLoad({ filter: /(^index\.js$)/ }, () => {
