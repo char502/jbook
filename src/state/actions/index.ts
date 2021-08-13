@@ -1,31 +1,31 @@
 import { ActionType } from '../action-types';
 import { CellTypes } from '../cell';
 
-interface UpdateCellAction {
+export type Direction = 'up' | 'down';
+export interface UpdateCellAction {
   type: ActionType.UPDATE_CELL;
   payload: {
     id: string;
     content: string;
   };
 }
-
-interface DeleteCellAction {
+export interface DeleteCellAction {
   type: ActionType.DELETE_CELL;
+  // the id of the cell you want to delete
   payload: string;
 }
-interface MoveCellAction {
+export interface MoveCellAction {
   type: ActionType.MOVE_CELL;
   payload: {
     id: string;
-    direction: 'up' | 'down';
+    direction: Direction;
   };
 }
-
-interface InsertCellBeforeAction {
+export interface InsertCellBeforeAction {
   type: ActionType.INSERT_CELL_BEFORE;
   payload: {
     id: string;
-    type: CellTypes;
+    cellType: CellTypes;
   };
 }
 
