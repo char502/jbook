@@ -98,9 +98,7 @@ const reducer = produce(
         } else {
           state.order.splice(foundIndex, 0, cell.id);
         }
-
         return state;
-
       default:
         return state;
     }
