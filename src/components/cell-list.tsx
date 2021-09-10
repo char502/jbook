@@ -1,8 +1,10 @@
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 // import { useTypedSelector } from '../hooks/use-typed-selector';
 import { RootState } from '../state';
 import { CellsState } from '../state/reducers/cellsReducer';
 import CellListItem from './cell-list-item';
+import AddCell from './add-cell';
 
 const CellList: React.FC = () => {
   // didn't work, had to use an alternative
@@ -19,12 +21,19 @@ const CellList: React.FC = () => {
   const cells = cellState.order.map((id) => cellState.data[id]);
 
   const renderedCells = cells.map((cell) => (
-    <CellListItem key={cell.id} cell={cell} />
+    <Fragment key={cell.id}>
+      <AddCell nextCellId={cell.id} />
+      <CellListItem cell={cell} />
+    </Fragment>
   ));
 
   return (
     <div>
-      <div>{renderedCells}</div>
+      <div>
+        {renderedCells}
+
+        <AddCell nextCellId={null} />
+      </div>
     </div>
   );
 };
