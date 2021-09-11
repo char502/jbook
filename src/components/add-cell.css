@@ -5,6 +5,13 @@
   margin: 8px 0;
 }
 
+/* Possible solution to code and text buttons flashing when create a new code or text cell */
+/* active pseudo class selector is applied to any element that a user is actively interacting with - whenever a user is clicking on 'AddCell (Code or text), we'll temporarily apply an opacity of 0 and update the transition property to make sure that, that change in opacity occurs instantaneously (using 'important' modifier to ensure are overriding any other existing opacity rules */
+/* .add-cell:active {
+  opacity: 0 !important;
+  transition: opacity 0s;
+} */
+
 .add-cell:hover {
   opacity: 1;
 }

@@ -48,10 +48,6 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
           />
         </Resizable>
 
-        {/* <div>
-          <button onClick={onClick}>Submit</button>
-        </div> */}
-
         <Preview code={code} BundleStatus={err} />
       </div>
     </Resizable>
