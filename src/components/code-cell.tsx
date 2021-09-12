@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import CodeEditor from './code-editor';
 import Preview from './preview';
-// import bundle from '../bundler';
 import Resizable from './resizable';
 import { Cell } from '../state';
 import { useActions } from '../hooks/use-actions';
-
 import { useTypedSelector } from '../hooks/use-typed-selector';
-// import { BundlesState } from '../state/reducers/bundlesReducer';
+import './code-cell.css';
 
 interface CodeCellProps {
   cell: Cell;
@@ -26,18 +24,24 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   // limits the rate at which a function gets invoked
 
   useEffect(() => {
+    if (!bundle) {
+      createBundle(cell.id, cell.content);
+      return;
+    }
+
     const timer = setTimeout(async () => {
       // No longer required, now doing this is redux
       // const output = await bundle(cell.content);
       // setCode(output.code);
       // setErr(output.err);
       createBundle(cell.id, cell.content);
-    }, 1000);
+    }, 750);
 
     // if you return a function in useEffect, it will be called automatically the next time useEffect is called
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cell.id, cell.content, createBundle]);
   // only need to include in dependency array if they are declared/defined in the component itself or received as a prop
   // If make use of some imported thing inside a useEffect function, do NOT have to add it to dependency array
@@ -59,8 +63,17 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizable>
-
-        {bundle && <Preview code={bundle.code} BundleStatus={bundle.err} />}
+        <div className='progress-wrapper'>
+          {!bundle || bundle.loading ? (
+            <div className='progress-cover'>
+              <progress className='progress is-small is-primary' max='100'>
+                Loading
+              </progress>
+            </div>
+          ) : (
+            <Preview code={bundle.code} BundleStatus={bundle.err} />
+          )}
+        </div>
       </div>
     </Resizable>
   );
